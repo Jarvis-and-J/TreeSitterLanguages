@@ -1,5 +1,21 @@
 # TreeSitterLanguages
 
+> **This is a fork.** Upstream is [simonbs/TreeSitterLanguages](https://github.com/simonbs/TreeSitterLanguages),
+> MIT, last pushed February 2024; the lineage is kept so an upstream fix can
+> still be merged.
+>
+> One change: the `Runestone` dependency points at our own fork
+> (`Jarvis-and-J/Runestone`, branch `main`) instead of `simonbs/Runestone`.
+> SwiftPM derives a package's identity from the last path component of its URL,
+> so both are `runestone` — two packages claiming one identity, which fails to
+> resolve before anything is built. An app on our Runestone fork cannot link
+> upstream's grammars at all, and repointing is the only way through. It also
+> means a consumer must depend on this package by branch, not by version: a
+> stable-version dependency may not itself depend on a branch.
+>
+> Everything else is upstream's. Consumers link only the grammars they use, so
+> the other forty cost nothing at build time.
+
 Languages for the [Tree-sitter](https://tree-sitter.github.io/tree-sitter/) parser generator wrapped in Swift packages.
 
 ## Motivation

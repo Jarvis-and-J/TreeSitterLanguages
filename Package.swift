@@ -124,7 +124,13 @@ let package = Package(
         .library(name: "TreeSitterYAMLRunestone", targets: ["TreeSitterYAMLRunestone"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/simonbs/Runestone", from: "0.4.1")
+        // Our own fork, at the same branch the app pins. Upstream's URL here
+        // was the whole reason this package could not be linked: SwiftPM derives
+        // a package's identity from the last path component, so
+        // simonbs/Runestone and Jarvis-and-J/Runestone are both "runestone" —
+        // two different packages claiming one identity, which fails to resolve
+        // before anything is built. Repointing is the fork's entire purpose.
+        .package(url: "https://github.com/Jarvis-and-J/Runestone.git", branch: "main")
     ],
     targets: [
         .target(name: "TreeSitterLanguagesCommon"),
