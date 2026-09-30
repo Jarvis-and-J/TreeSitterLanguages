@@ -1,13 +1,18 @@
-;; From nvim-treesitter/nvim-treesitter
+; Markdown, inline. Forked from nvim-treesitter/nvim-treesitter.
+;
+; Split for the reason the block file is: upstream hands every mark back as
+; `punctuation.delimiter`, so the `*` around a bold word, the backtick around a
+; code span and the brackets around a link cannot be told apart by a theme. See
+; `TreeSitterMarkdownQueries/highlights.scm`.
+
 [
   (code_span)
   (link_title)
 ] @text.literal
 
-[
-  (emphasis_delimiter)
-  (code_span_delimiter)
-] @punctuation.delimiter
+(emphasis_delimiter) @punctuation.special.emphasis
+
+(code_span_delimiter) @punctuation.special.code
 
 (emphasis) @text.emphasis
 
@@ -32,6 +37,6 @@
 ; ")" not part of query because of
 ; https://github.com/nvim-treesitter/nvim-treesitter/issues/2206
 ; TODO: Find better fix for this
-(image ["!" "[" "]" "("] @punctuation.delimiter)
-(inline_link ["[" "]" "("] @punctuation.delimiter)
-(shortcut_link ["[" "]"] @punctuation.delimiter)
+(image ["!" "[" "]" "("] @punctuation.special.link)
+(inline_link ["[" "]" "("] @punctuation.special.link)
+(shortcut_link ["[" "]"] @punctuation.special.link)
